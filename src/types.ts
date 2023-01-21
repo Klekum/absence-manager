@@ -21,6 +21,8 @@ export type Absence = {
   userId: 2664
 }
 
+export type AbsenceStatus = "requested" | "confirmed" | "rejected"
+
 export type AbsenceType = "sickness" | "vacation"
 
 export type ApiResult<T> = {
