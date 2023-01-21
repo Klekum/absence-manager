@@ -1,36 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Member, Absence } from './types'
 
-interface MembersState {
-  members: Member[]
-}
-interface AbsencesState {
-  absences: Absence[]
-}
-
-const initialMembersState: MembersState = {
-  members: [],
-}
-const initialAbsencesState: AbsencesState = {
-  absences: [],
-}
-
 const memberSlice = createSlice({
   name: 'member',
-  initialState: initialMembersState,
+  initialState: [] as Member[],
   reducers: {
     setMembers(state, action: PayloadAction<Member[]>) {
-      state.members = action.payload
+      state = action.payload
     }
   }
 })
 
 const absenceSlice = createSlice({
   name: 'absence',
-  initialState: initialAbsencesState,
+  initialState: [] as Absence[],
   reducers: {
     setAbsences(state, action: PayloadAction<Absence[]>) {
-      state.absences = action.payload
+      state = action.payload
     }
   }
 })

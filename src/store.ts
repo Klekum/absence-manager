@@ -4,8 +4,8 @@ import { reducers } from './slices';
 
 export const store = configureStore({
   reducer: {
-    member: reducers.memberReducer,
-    absence: reducers.absenceReducer,
+    members: reducers.memberReducer,
+    absences: reducers.absenceReducer,
   },
 });
 
