@@ -10,7 +10,8 @@ const MEMBERS_PATH = path.join(__dirname, 'json_files', 'members.json');
 var members = fs.readFileSync(MEMBERS_PATH, 'utf8')
 var absences = fs.readFileSync(ABSENCES_PATH, 'utf8')
 
-app.get('/api/v1/members.json', (req, res) => { res.send(JSON.parse(members)) })
-app.get('/api/v1/absences.json', (req, res) => { res.send(JSON.parse(absences)) })
+app.use(cors())
+app.get('/api/v1/members', (req, res) => { res.send(JSON.parse(members)) })
+app.get('/api/v1/absences', (req, res) => { res.send(JSON.parse(absences)) })
 
 var server = app.listen(8000, '0.0.0.0', function () {})
