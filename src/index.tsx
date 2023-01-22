@@ -5,15 +5,33 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { MemberDetail } from './MemberDetail';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Provider store={store}>
+      <App />
+    </Provider>,
+    children: [
+      {
+        path: "member/:id",
+        element: <MemberDetail />,
+      },
+    ],
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

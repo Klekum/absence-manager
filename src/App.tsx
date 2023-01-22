@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import { DataGrid, GridColDef, GridFilterModel, GridRenderCellParams, GridRowEntry, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
-import { Absence, AbsenceStatus, Member } from './types';
-import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
-import { getAbsenceStatus } from './shared';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowEntry } from '@mui/x-data-grid';
+import { Link, Outlet, Route, Routes, useParams } from 'react-router-dom';
+import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
+import './App.css';
 import BasicDateRangePicker from './BasicDateRangePicker';
-import { AbsenceStatusIcon } from './AbsenceStatusIcon';
 import { CustomNoRowsOverlay } from './CustomNoRowsOverlay';
+import { getAbsenceStatus } from './shared';
+import { StatusIcon } from './StatusIcon';
+import { Absence, Member } from './types';
+import { MemberDetail } from './MemberDetail';
 
 const darkTheme = createTheme({
   palette: {
@@ -17,15 +18,21 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  const { id } = useParams<{ id: string }>();
+
   const { data: absences, isFetching, isSuccess } = useGetAbsencesQuery()
   const { data: members, isFetching: isFetchingMembers } = useGetMembersQuery()
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', width: 160 },
-    { field: 'type', headerName: 'Type', width: 100 },
+    {
+      field: 'name', headerName: 'Name', width: 160, renderCell: (params: GridRenderCellParams<any, any, any>) => {
+        return <Link to={`member/${params.row.userId}`}>{params.value}</Link>
+      }
+    },
+    { field: 'type', headerName: 'Type', width: 100, renderCell: (params: GridRenderCellParams<any, any, any>) => <StatusIcon status={params.value} /> },
     { field: 'period', headerName: 'Period', width: 180 },
     { field: 'memberNote', headerName: 'Member Note', width: 200 },
-    { field: 'status', headerName: 'Status', width: 100, renderCell: (params: GridRenderCellParams<any, any, any>) => <AbsenceStatusIcon status={params.value} /> },
+    { field: 'status', headerName: 'Status', width: 100, renderCell: (params: GridRenderCellParams<any, any, any>) => <StatusIcon status={params.value} /> },
     { field: 'admitterNote', headerName: 'Admitter Note', width: 200 },
   ]
 
@@ -42,9 +49,10 @@ function App() {
   }) : []
 
 
-  // const filteredRows = rows.map((row: GridRowEntry) => {
-  //   if(row.)
-  // })
+  const filteredRows = rows.filter((row: Absence) => {
+    if (!id) return true
+    return row.userId === parseInt(id)
+  })
 
   const onPeriodChange = (value: any) => {
     if (value.length === 0) return
@@ -59,12 +67,13 @@ function App() {
       <CssBaseline />
       <div className="App">
         <h1>Absence Manager</h1>
+        <Outlet />
         <BasicDateRangePicker onChange={onPeriodChange} />
         <div className='datagrid'>
           {isFetching || isFetchingMembers ? <p>Loading...</p> : null}
           <DataGrid
             className='datagrid'
-            rows={rows}
+            rows={filteredRows}
             components={{
               NoRowsOverlay: CustomNoRowsOverlay,
             }}
