@@ -1,9 +1,20 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { DataGrid, GridColDef, GridRowEntry, GridValueGetterParams } from '@mui/x-data-grid';
-import { Absence, Member } from './types';
+import { DataGrid, GridColDef, GridFilterModel, GridRenderCellParams, GridRowEntry, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
+import { Absence, AbsenceStatus, Member } from './types';
 import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
 import { getAbsenceStatus } from './shared';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import BasicDateRangePicker from './BasicDateRangePicker';
+import { AbsenceStatusIcon } from './AbsenceStatusIcon';
+import { CustomNoRowsOverlay } from './CustomNoRowsOverlay';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 function App() {
   const { data: absences, isFetching, isSuccess } = useGetAbsencesQuery()
@@ -11,10 +22,10 @@ function App() {
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', width: 160 },
-    { field: 'type', headerName: 'ToA', width: 100 },
+    { field: 'type', headerName: 'Type', width: 100 },
     { field: 'period', headerName: 'Period', width: 180 },
     { field: 'memberNote', headerName: 'Member Note', width: 200 },
-    { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'status', headerName: 'Status', width: 100, renderCell: (params: GridRenderCellParams<any, any, any>) => <AbsenceStatusIcon status={params.value} /> },
     { field: 'admitterNote', headerName: 'Admitter Note', width: 200 },
   ]
 
@@ -30,22 +41,40 @@ function App() {
     return gridRow
   }) : []
 
+
+  // const filteredRows = rows.map((row: GridRowEntry) => {
+  //   if(row.)
+  // })
+
+  const onPeriodChange = (value: any) => {
+    if (value.length === 0) return
+
+
+    console.log(value[0].$d)
+    console.log(value[1].$d)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <div className="App">
         <h1>Absence Manager</h1>
-      </header>
-      <div className='datagrid'>
-        {isFetching || isFetchingMembers ? <p>Loading...</p> : null}
-        <DataGrid
-          className='datagrid'
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-        />
+        <BasicDateRangePicker onChange={onPeriodChange} />
+        <div className='datagrid'>
+          {isFetching || isFetchingMembers ? <p>Loading...</p> : null}
+          <DataGrid
+            className='datagrid'
+            rows={rows}
+            components={{
+              NoRowsOverlay: CustomNoRowsOverlay,
+            }}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+          />
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
