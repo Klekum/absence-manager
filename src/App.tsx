@@ -13,7 +13,7 @@ import { MemberDetail } from './MemberDetail';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
   },
 });
 
