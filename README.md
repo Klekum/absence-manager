@@ -29,7 +29,7 @@ To see the project in action in the browser, run this command:
 npm start
 ```
 
-This command starts a simple express API server in the background for the files. To start the development environment without the API server (perhaps)
+This command starts a simple express API server in the background for the files. To start the development environment without the API server (perhaps
 to test error responses) run:
 
 ```bash
@@ -44,7 +44,9 @@ Run the tests with
 npm test
 ```
 
-#### Tech Stack
+## Tech Stack
+
+Built with
 
 - React
 - react-testing-library
