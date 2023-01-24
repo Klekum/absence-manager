@@ -34,7 +34,7 @@ const lightTheme = createTheme({
 function App() {
   const { id } = useParams<{ id: string }>();
   const [periodFilter, setPeriodFilter] = React.useState<DateRange<Dayjs>>([
-    dayjs('2011-01-01'),
+    dayjs('2020-12-01'),
     dayjs('2021-12-31'),
   ])
   const [absenceFilter, setAbsenceFilter] = React.useState<AbsenceType | null>(null)
@@ -44,7 +44,7 @@ function App() {
   const columns: GridColDef[] = [
     {
       field: 'name', headerName: 'Name', width: 160, flex: 1, renderCell: (params: GridRenderCellParams<any, any, any>) => {
-        return <Link to={`member/${params.row.userId}`}>{params.value}</Link>
+        return <Link to={`/member/${params.row.userId}`}>{params.value}</Link>
       }
     },
     { field: 'type', headerName: 'Type', width: 100, flex: 1, renderCell: (params: GridRenderCellParams<any, any, any>) => <StatusIcon status={params.value} /> },
@@ -91,9 +91,11 @@ function App() {
       <CssBaseline />
       <div className='App-header'>
         <h1>
-          <FontAwesomeIcon icon={faCalendarCheck} />
-          &nbsp;
-          Absence Manager
+          <Link to="/">
+            <FontAwesomeIcon icon={faCalendarCheck} />
+            &nbsp;
+            Absence Manager
+          </Link>
         </h1>
       </div>
       <div className='App-contents'>

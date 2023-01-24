@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { store } from './store';
+import { setupStore } from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -13,6 +13,9 @@ import { MemberDetail } from './MemberDetail';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const store = setupStore({});
+
 const router = createBrowserRouter([
   {
     path: "/",

@@ -9,6 +9,12 @@ body.absence-manager {
   padding-left: 2vw;
   letter-spacing: -.05rem;
 }
+.App-header a {
+  text-decoration: none;
+}
+.App-header h1 a {
+  color: white;
+}
 .App-contents {
   padding-left: 2vw;
   padding-right: 2vw;
