@@ -11,19 +11,28 @@ export const MemberDetail = () => {
 
   const member = members?.payload?.find((member: Member) => member.userId === parseInt(id || '0'));
 
-  return <div>
-    <h1>{member?.name}</h1>
-    <Box
-      sx={{
-        width: 300,
-        height: 300,
-        backgroundImage: 'url(' + member?.image + ')',
-        backgroundColor: 'primary.dark',
-        '&:hover': {
-          backgroundColor: 'primary.main',
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}
-    />
-  </div>
+  return <>
+    <p className="filter-title">Member Details</p>
+
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+
+      <Box
+        sx={{
+          marginRight: 2,
+          width: 200,
+          height: 200,
+          backgroundImage: 'url(' + member?.image + ')',
+          backgroundSize: 'cover',
+          backgroundColor: 'primary.dark',
+          '&:hover': {
+            backgroundColor: 'primary.main',
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
+      />
+      <Box>
+        <h1>{member?.name}</h1>
+      </Box>
+    </Box>
+  </>
 }
