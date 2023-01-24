@@ -18,6 +18,10 @@ body.absence-manager {
   min-height: 70vh;
   padding-top: 1vw;
 }
+.datagrid .svg-inline--fa {
+  font-size: .8rem;
+  color: #7b4200;
+}
 
 .filter-title {
   font-size: .7rem;
@@ -29,12 +33,13 @@ html, body {
   margin: 0px;
 }
 a {
-  color: #ff9419;;
+  color: #7b4200;
 }
 a:hover {
-  color: #ff9419;;
+  color: #ff9419;
   text-decoration: none;
 }
 a:visited {
-  color: #ff9419;;
+  color: #7b4200;
 }
+
