@@ -26,8 +26,8 @@ We decided to implement this feature for our clients and we are calling it the A
   - [x] Member note (when available)
   - [x] Status (can be 'Requested', 'Confirmed' or 'Rejected')
   - [x] Admitter note (when available)
-- [ ] I want to filter absences by type.
-- [ ] I want to filter absences by date.
+- [x] I want to filter absences by type.
+- [x] I want to filter absences by date.
 - [x] I want to see a loading state until the list is available.
 - [ ] I want to see an error state if the list is unavailable.
 - [x] I want to see an empty state if there are no results.
