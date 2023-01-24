@@ -8,30 +8,35 @@ import { DateRangePicker, DateRange } from '@mui/x-date-pickers-pro/DateRangePic
 
 interface PropDefs {
   onChange: (value: DateRange<Dayjs>) => void;
+  defaultValue?: DateRange<Dayjs>;
 }
 
-export default function BasicDateRangePicker({ onChange }: PropDefs) {
-  const [value, setValue] = React.useState<DateRange<Dayjs>>([null, null]);
+export default function BasicDateRangePicker({ onChange, defaultValue }: PropDefs) {
+  const [value, setValue] = React.useState<DateRange<Dayjs>>(defaultValue || [null, null]);
 
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
       localeText={{ start: 'Start', end: 'End' }}
     >
-      <DateRangePicker
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-          onChange(newValue);
-        }}
-        renderInput={(startProps, endProps) => (
-          <React.Fragment>
-            <TextField {...startProps} />
-            <Box sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} />
-          </React.Fragment>
-        )}
-      />
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+        <p className="filter-title">DATE PERIOD</p>
+
+        <DateRangePicker
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+            onChange(newValue);
+          }}
+          renderInput={(startProps, endProps) => (
+            <React.Fragment>
+              <TextField {...startProps} />
+              <Box sx={{ mx: 2 }}> to </Box>
+              <TextField {...endProps} />
+            </React.Fragment>
+          )}
+        />
+      </Box>
     </LocalizationProvider>
   );
 }
