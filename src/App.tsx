@@ -1,7 +1,14 @@
+import { faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert, Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowEntry } from '@mui/x-data-grid';
-import { Link, Outlet, Route, Routes, useParams } from 'react-router-dom';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
+import dayjs, { Dayjs } from 'dayjs';
+import React from 'react';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import { AbsenceTypeFilters } from './AbsenceStatusFilters';
 import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
 import './App.css';
 import BasicDateRangePicker from './BasicDateRangePicker';
@@ -9,13 +16,6 @@ import { CustomNoRowsOverlay } from './CustomNoRowsOverlay';
 import { getAbsenceStatus } from './shared';
 import { StatusIcon } from './StatusIcon';
 import { Absence, AbsenceType, Member } from './types';
-import React from 'react';
-import { DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
-import dayjs, { Dayjs } from 'dayjs';
-import { AbsenceTypeFilters } from './AbsenceStatusFilters';
-import { Box } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarCheck, faCalendarDays, faFilter } from '@fortawesome/free-solid-svg-icons';
 
 const lightTheme = createTheme({
   palette: {
@@ -24,19 +24,12 @@ const lightTheme = createTheme({
   typography: {
     fontFamily: [
       'Source Sans Pro',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
       '"Helvetica Neue"',
       'Arial',
       'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
     ].join(','),
   },
 });
-
 
 function App() {
   const { id } = useParams<{ id: string }>();
@@ -45,7 +38,7 @@ function App() {
     dayjs('2021-12-31'),
   ])
   const [absenceFilter, setAbsenceFilter] = React.useState<AbsenceType | null>(null)
-  const { data: absences, isFetching, isSuccess } = useGetAbsencesQuery()
+  const { data: absences, isFetching, isSuccess, isError } = useGetAbsencesQuery()
   const { data: members, isFetching: isFetchingMembers } = useGetMembersQuery()
 
   const columns: GridColDef[] = [
@@ -104,6 +97,7 @@ function App() {
         </h1>
       </div>
       <div className='App-contents'>
+        {isError && <Alert severity='error'>Data could not be loaded. Please try again later.</Alert>}
 
         <Outlet />
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>

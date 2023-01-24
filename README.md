@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://crewmeister.com/images/logo_crewmeister_without_text.svg" />
-</p>
-
 # 🚀 Crewmeister coding challenge - Frontend (React)
 
 Hello and thanks in participating in the crewmeister coding challenge. This coding exercise will help us get a better feeling about your coding process.
@@ -29,7 +25,7 @@ We decided to implement this feature for our clients and we are calling it the A
 - [x] I want to filter absences by type.
 - [x] I want to filter absences by date.
 - [x] I want to see a loading state until the list is available.
-- [ ] I want to see an error state if the list is unavailable.
+- [x] I want to see an error state if the list is unavailable.
 - [x] I want to see an empty state if there are no results.
 - [ ] (Bonus) I can generate an iCal file and import it into outlook.
 
@@ -90,5 +86,3 @@ To submit the project for evaluation please follow the steps below:
 ## That's it!
 
 Happy coding!
-
-<img src="https://user-images.githubusercontent.com/5693916/30273942-84252588-96fb-11e7-9420-5516b92cb1f7.gif" data-canonical-src="https://user-images.githubusercontent.com/5693916/30273942-84252588-96fb-11e7-9420-5516b92cb1f7.gif" width="150" height="150" />
