@@ -1,27 +1,40 @@
-.datagrid {
-  height: 100%;
-  min-height: 600px;
-  width: 98vw;
-  margin: 0 auto;
-  padding-top: 1vw;
+body.absence-manager {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #777;
 }
-
 .App-header {
   background-color:rgba(255,148,25,0.85);
   color: white;
-  padding: 12px;
-  height: 6vh;
+  padding-top: 2vh;
+  padding-left: 2vw;
+  letter-spacing: -.05rem;
+}
+.App-contents {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+.datagrid {
+  height: 100%;
+  min-height: 70vh;
+  padding-top: 1vw;
 }
 
-.App-link {
-  color: #61dafb;
+.filter-title {
+  font-size: .7rem;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html, body {
+  margin: 0px;
+}
+a {
+  color: #ff9419;;
+}
+a:hover {
+  color: #ff9419;;
+  text-decoration: none;
+}
+a:visited {
+  color: #ff9419;;
 }
