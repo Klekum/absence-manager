@@ -9,7 +9,7 @@ Little frontend app to display and filter a list of absences.
 - [x] Filters
 - [x] Views for different states
 - [x] Member detail page
-- [ ] (Bonus) I can generate an iCal file and import it into outlook.
+- [x] (Bonus) I can generate an iCal file and import it into outlook.
 
 ## Project setup
 
