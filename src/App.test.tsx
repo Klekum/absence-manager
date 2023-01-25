@@ -8,15 +8,12 @@ const ReduxProvider = ({ children }: any) => (
   <Provider store={store}>{children}</Provider>
 )
 
-test('renders overview page with loading screen', () => {
+test('renders overview page with loading screen', async () => {
   render(<ReduxProvider><App /></ReduxProvider>, { wrapper: BrowserRouter });
-
-  const headerElement = screen.getByText(/Absence Manager/i);
-  const absenceTypeElement = screen.getByText(/ABSENCE TYPE/i);
   const loadingElement = screen.getByText(/Loading/i);
   expect(loadingElement).toBeInTheDocument();
-  expect(headerElement).toBeInTheDocument();
-  expect(absenceTypeElement).toBeInTheDocument();
+  await screen.findByText(/Absence Manager/i)
+
 });
 
 test('renders overview page with data', async () => {

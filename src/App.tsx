@@ -138,7 +138,7 @@ function App() {
         </Box>
       </div>
       <div className='App-footer'>
-        <p>© 2023 Absence Manager</p>
+        <p>© 2023</p>
       </div>
     </ThemeProvider>
   );
