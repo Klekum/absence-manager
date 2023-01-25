@@ -25,11 +25,13 @@ npm install
 
 To see the project in action in the browser, run this command:
 
-```
+```bash
 npm start
 ```
 
-This command starts a simple express API server in the background for the files. To start the development environment without the API server (perhaps
+This command starts a dev server at (http://localhost:3000/)[http://localhost:3000/] and a simple express API server running at http://localhost:8000 in the background for loading data.
+
+To start the development environment without the API server (perhaps
 to test error responses) run:
 
 ```bash
