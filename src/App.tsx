@@ -1,4 +1,4 @@
-import { faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck, faHospital, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert, Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,14 +8,15 @@ import { DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import React from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { AbsenceTypeFilters } from './AbsenceStatusFilters';
+import { AbsenceTypeFilters } from './components/AbsenceStatusFilters';
 import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
 import './App.css';
-import BasicDateRangePicker from './BasicDateRangePicker';
-import { CustomNoRowsOverlay } from './CustomNoRowsOverlay';
+import BasicDateRangePicker from './components/BasicDateRangePicker';
+import { CustomNoRowsOverlay } from './components/CustomNoRowsOverlay';
 import { getAbsenceStatus } from './shared';
-import { StatusIcon } from './StatusIcon';
+import { StatusIcon } from './components/StatusIcon';
 import { Absence, AbsenceType, Member } from './types';
+import { FlexiBox } from './components/FlexiBox';
 
 const lightTheme = createTheme({
   palette: {
@@ -86,6 +87,9 @@ function App() {
     setPeriodFilter(newPeriod)
   }
 
+  const sickDays = filteredRows.filter((row: Absence) => row.type === 'sickness').length
+  const vacationDays = filteredRows.filter((row: Absence) => row.type === 'vacation').length
+
   return (
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
@@ -102,10 +106,22 @@ function App() {
         {isError && <Alert severity='error'>Data could not be loaded. Please try again later.</Alert>}
 
         <Outlet />
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <AbsenceTypeFilters onChange={setAbsenceFilter} />
-          <BasicDateRangePicker onChange={onPeriodChange} defaultValue={periodFilter} />
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }} className='filters'>
+          <FlexiBox>
+            <strong>{filteredRows.length}</strong> &nbsp;/&nbsp;
+            <FontAwesomeIcon icon={faSun} />&nbsp;{vacationDays}&nbsp;/&nbsp;
+            <FontAwesomeIcon icon={faHospital} />&nbsp;{sickDays}
+          </FlexiBox>
+
+          <FlexiBox>
+            <Box sx={{ borderRight: 1, marginRight: '2vw', marginLeft: '2vw', borderColor: 'grey.400' }}>
+              <AbsenceTypeFilters onChange={setAbsenceFilter} />
+            </Box>
+            <BasicDateRangePicker onChange={onPeriodChange} defaultValue={periodFilter} />
+          </FlexiBox>
         </Box>
+
         <Box className='datagrid'>
           {isFetching || isFetchingMembers ? <p>Loading...</p> : null}
           <DataGrid
@@ -121,7 +137,9 @@ function App() {
           />
         </Box>
       </div>
-
+      <div className='App-footer'>
+        <p>© 2023 Absence Manager</p>
+      </div>
     </ThemeProvider>
   );
 }

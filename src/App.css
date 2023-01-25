@@ -3,30 +3,46 @@ body.absence-manager {
   color: #777;
 }
 .App-header {
-  background-color:rgba(255,148,25,0.85);
-  color: white;
   padding-top: 2vh;
   padding-left: 2vw;
   letter-spacing: -.05rem;
 }
+
+.App-footer, .App-header {
+  background-color:rgba(255,148,25,0.85);
+  color: white;
+}
+
+.App-footer {
+  margin-top: 2vw;
+  padding: 1vh;
+}
+
 .App-header a {
   text-decoration: none;
 }
+
 .App-header h1 a {
   color: white;
 }
+
 .App-contents {
   padding-left: 2vw;
   padding-right: 2vw;
 }
+
 .datagrid {
   height: 100%;
   min-height: 70vh;
   padding-top: 1vw;
 }
+
+.filters .svg-inline--fa {
+  font-size: .7rem;
+  color: grey;
+}
 .datagrid .svg-inline--fa {
-  font-size: .8rem;
-  color: #7b4200;
+  color: grey;
 }
 
 .filter-title {
