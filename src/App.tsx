@@ -17,6 +17,8 @@ import { getAbsenceStatus } from './shared';
 import { StatusIcon } from './components/StatusIcon';
 import { Absence, AbsenceType, Member } from './types';
 import { FlexiBox } from './components/FlexiBox';
+import ICalendarLink from "react-icalendar-link";
+import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
 
 const lightTheme = createTheme({
   palette: {
@@ -53,6 +55,22 @@ function App() {
     { field: 'memberNote', headerName: 'Member Note', flex: 2, width: 200 },
     { field: 'status', headerName: 'Status', width: 100, flex: 1, renderCell: (params: GridRenderCellParams<any, any, any>) => <StatusIcon status={params.value} /> },
     { field: 'admitterNote', headerName: 'Admitter Note', flex: 2, width: 200 },
+    {
+      field: 'icalExport', headerName: 'iCal Export', width: 70, flex: 1, renderCell: (params: GridRenderCellParams<any, any, any>) => {
+        if (!params.value) return ''
+        const { row } = params
+        const user = members?.payload.find((member: Member) => member.userId === row.userId)
+        const event: any = {
+          startTime: row.startDate,
+          endTime: row.endDate,
+          title: `${row.type} - ${user?.name}`,
+          description: `${row.type} for ${user?.name}\nAdmitter Note: ${row.admitterNote}\nMember Note: ${row.memberNote}`,
+        }
+        return <ICalendarLink event={event} >
+          <FontAwesomeIcon icon={faCalendarPlus} />
+        </ICalendarLink>
+      }
+    }
   ]
 
   const rows = isSuccess && absences.payload.length ? absences.payload.map((absence: Absence) => {
@@ -63,6 +81,7 @@ function App() {
       name: member?.name,
       status: getAbsenceStatus(absence),
       period,
+      icalExport: !!absence.confirmedAt
     }
     return gridRow
   }) : []
