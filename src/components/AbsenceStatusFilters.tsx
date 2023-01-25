@@ -1,8 +1,6 @@
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material"
 import React from "react"
-import { Radio, FormControlLabel, RadioGroup, Box, Typography, Checkbox, FormGroup } from "@mui/material"
 import { AbsenceType } from "../types"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHospital, faSun } from "@fortawesome/free-solid-svg-icons"
 import { FlexiBox } from "./FlexiBox"
 
 interface PropDefs {
