@@ -30,3 +30,9 @@ export type ApiResult<T> = {
   payload: T,
 }
 
+export type IcsEvent = {
+  start: Date
+  end: Date
+  description: string
+  title: string
+}

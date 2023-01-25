@@ -1,3 +1,4 @@
+import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
 import { faCalendarCheck, faHospital, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert, Box } from '@mui/material';
@@ -8,17 +9,16 @@ import { DateRange } from '@mui/x-date-pickers-pro/DateRangePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import React from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { AbsenceTypeFilters } from './components/AbsenceStatusFilters';
 import { useGetAbsencesQuery, useGetMembersQuery } from './api-slice';
 import './App.css';
+import { AbsenceTypeFilters } from './components/AbsenceStatusFilters';
 import BasicDateRangePicker from './components/BasicDateRangePicker';
 import { CustomNoRowsOverlay } from './components/CustomNoRowsOverlay';
-import { getAbsenceStatus } from './shared';
-import { StatusIcon } from './components/StatusIcon';
-import { Absence, AbsenceType, Member } from './types';
 import { FlexiBox } from './components/FlexiBox';
-import ICalendarLink from "react-icalendar-link";
-import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+import { ICSExporter } from './components/ICSExporter';
+import { StatusIcon } from './components/StatusIcon';
+import { getAbsenceStatus } from './shared';
+import { Absence, AbsenceType, IcsEvent, Member } from './types';
 
 const lightTheme = createTheme({
   palette: {
@@ -60,15 +60,15 @@ function App() {
         if (!params.value) return ''
         const { row } = params
         const user = members?.payload.find((member: Member) => member.userId === row.userId)
-        const event: any = {
-          startTime: row.startDate,
-          endTime: row.endDate,
+        const event: IcsEvent = {
+          start: new Date(row.startDate),
+          end: new Date(row.endDate),
           title: `${row.type} - ${user?.name}`,
           description: `${row.type} for ${user?.name}\nAdmitter Note: ${row.admitterNote}\nMember Note: ${row.memberNote}`,
         }
-        return <ICalendarLink event={event} >
+        return <ICSExporter event={event} >
           <FontAwesomeIcon icon={faCalendarPlus} />
-        </ICalendarLink>
+        </ICSExporter>
       }
     }
   ]
