@@ -8,7 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { MemberDetail } from './MemberDetail';
+import { MemberDetail } from './member_detail/MemberDetail';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
