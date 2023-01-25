@@ -1,8 +1,8 @@
 import React from "react"
 import { Radio, FormControlLabel, RadioGroup, Box, Typography, Checkbox, FormGroup } from "@mui/material"
-import { AbsenceType } from "./types"
+import { AbsenceType } from "../types"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHospital, faPlane } from "@fortawesome/free-solid-svg-icons"
+import { faHospital, faSun } from "@fortawesome/free-solid-svg-icons"
 import { FlexiBox } from "./FlexiBox"
 
 interface PropDefs {
@@ -21,17 +21,13 @@ export const AbsenceTypeFilters = ({ onChange }: PropDefs) => {
     onChange(newSelections.length === 1 ? newSelections[0] : null)
   }
 
-  return <FlexiBox flexDirection="column" alignItems="flex-start" >
-    <p className="filter-title">Absence Type</p>
-
+  return <FlexiBox flexDirection="column" alignItems="center">
     <FormGroup onChange={handleChange} sx={{ display: 'flex', flexDirection: 'row' }}>
       <FlexiBox>
-        <FontAwesomeIcon icon={faHospital} />&nbsp;
-        <FormControlLabel value="sickness" control={<Checkbox />} label="Sick" />
+        <FormControlLabel value="vacation" control={<Checkbox />} label="Vacation" />
       </FlexiBox>
       <FlexiBox>
-        <FontAwesomeIcon icon={faPlane} />&nbsp;
-        <FormControlLabel value="vacation" control={<Checkbox />} label="Vacation" />
+        <FormControlLabel value="sickness" control={<Checkbox />} label="Sick" />
       </FlexiBox>
     </FormGroup>
   </FlexiBox >

@@ -20,8 +20,6 @@ export default function BasicDateRangePicker({ onChange, defaultValue }: PropDef
       localeText={{ start: 'Start', end: 'End' }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-        <p className="filter-title">DATE PERIOD</p>
-
         <DateRangePicker
           value={value}
           onChange={(newValue) => {
