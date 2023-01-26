@@ -25,7 +25,6 @@ export const MemberDetail = () => {
               height: 200,
               backgroundImage: 'url(' + member?.image + ')',
               backgroundSize: 'cover',
-              backgroundColor: 'primary.dark',
               '&:hover': {
                 backgroundColor: 'primary.main',
                 opacity: [0.9, 0.8, 0.7],

@@ -25,7 +25,11 @@ const StyledGridOverlay = styled('div')(({ theme }) => ({
   },
 }));
 
-export function CustomNoRowsOverlay() {
+interface CustomNoRowsOverlayProps {
+  loading: boolean;
+}
+
+export function CustomNoRowsOverlay({ loading = false }: CustomNoRowsOverlayProps) {
   return (
     <StyledGridOverlay>
       <svg
@@ -67,7 +71,7 @@ export function CustomNoRowsOverlay() {
           </g>
         </g>
       </svg>
-      <Box sx={{ mt: 1 }}>No Rows</Box>
+      <Box sx={{ mt: 1 }}>{loading ? 'Loading...' : 'No Rows'}</Box>
     </StyledGridOverlay>
   );
 }
