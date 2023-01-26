@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import App from './App';
 import { store } from './store';
 
